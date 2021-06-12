@@ -46,6 +46,7 @@ max-width: ${basicUnits.maxWidth}px;
 margin:auto;
 height: auto;
 max-height: 50vh;
+padding-top:8rem;
 
 `;
 const Form= styled.form`
@@ -67,15 +68,16 @@ const Input = styled.input`
 outline: none;
 border:none;
 height: 100%;
+width: 100%;
 color:${colors.secondary};
 `
 const FormDesign= styled.div `
 border:2px solid grey;
-
+width: 80%;
 height: 100%;
 display: flex;
 align-items: center;
-justify-content: center;
+justify-content: space-between;
 border-radius: 8px;
 `;
 const FormBtn= styled.button`

@@ -19,15 +19,29 @@ const target = document.querySelector('#root')
 
 const token = localStorage.getItem('auth_token')
 const mail = localStorage.getItem('user_mail')
-if(token){
+if(token && mail){
     let decode = jwtDecode(token)
-  console.log(decode)
-    store.dispatch({
-        type: Types.SET_USER,
-        payload: {
-            user:{jwt:token,mail}
+   if(decode.exp < Date.now() / 1000){
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("user_mail");
+    
+    
+    message.success("Your session have been expired, Log in to continue");
+     store.dispatch({
+       type:Types.LOGOUT,
+       payload:{
+         user:{}
+       }
+     })
+   }else{
+  
+     store.dispatch({
+       type: Types.SET_USER,
+       payload: {
+         user:{jwt:token,mail}
         }
-    })
+      })
+    }
 }
 
 

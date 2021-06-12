@@ -28,7 +28,13 @@ const Header = (props) => {
       <Head>
         <Container>
                <LeftContainer>
-               <Link to="/">  <Logo>TechNotes</Logo></Link>
+               <Link to="/">  
+               <LogoContainer>
+                 <Logo>TechNotes</Logo>
+
+                 </LogoContainer>
+               
+               </Link>
                </LeftContainer>
                <Hamburger open={open} setOpen={setOpen}/>
                <RightContainer open={open}>
@@ -39,6 +45,7 @@ const Header = (props) => {
                 }
                 
                 <Link to="/note"> <MyNotes>My Notes</MyNotes></Link>
+            
                    <MyNotes>My Notes</MyNotes>
                    <MyNotes>My Notes</MyNotes>
                    <MyNotes>My Notes</MyNotes>
@@ -54,9 +61,23 @@ const Header = (props) => {
 const Head= styled.div`
   width: 100%;
 
-  background-color:${colors.primary};
-  height:${basicUnits.size*4}px;
-  color:${colors.secondary};
+background-color:${colors.primary};
+height:${basicUnits.size*3}px;
+color:${colors.secondary};
+  ${mediaQuery.med `
+
+width: 100%;
+
+background-color:${colors.primary};
+height:${basicUnits.size*4}px;
+color:${colors.secondary};
+`}
+a{
+ color:${colors.third};
+ ${mediaQuery.med `
+ color:${colors.secondary};
+ `}
+}
 
 `;
 const Container=styled.div`
@@ -86,12 +107,31 @@ a{
 const Logo=styled.p`
 font-weight: bold;
 font-size: ${basicUnits.fontSize*1.5}px;
+color:${colors.third};
 ${mediaQuery.med `
 
+
 font-size: ${basicUnits.fontSize*2}px;
+color:${colors.third};
 `}
 
 `
+const LogoContainer= styled.div`
+  
+background-color: aliceblue;
+transform: skewX(
+-15deg
+);
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: ${colors.secondary};
+width: ${basicUnits.size*15}px;
+margin: auto;
+padding:1.1rem;
+height: 100%;
+`;
+
 
 const MyNotes=styled.p`
 ${mediaQuery.med `
@@ -118,9 +158,11 @@ top:0;
 right:0;
 height: 100vh;
 width:50%;
-background-color: white;
+background-color: ${colors.secondary};
 transform: ${({open})=>open? 'translateX(0)':'translateX(100%)'};
 transition: transform .3s  ease-in-out;
+z-index: 10;
+color:${colors.third};
 
 ${mediaQuery.med `
 all:unset;
@@ -130,10 +172,9 @@ align-items: center;
 height: 100%;
 gap:1rem;
 flex-flow: row;
+
 `}
-a{
- color:${colors.secondary}
-}
+
 `;
 
 function mapStateToProps(state, ownProps) {

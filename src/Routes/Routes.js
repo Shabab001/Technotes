@@ -5,6 +5,7 @@ const Header =lazy(()=>import("../components/SharedComponents/Header"))
 const Footer =lazy(()=>import("../components/SharedComponents/Footer"))
 const Home =lazy(()=>import('../pages/Home'))
 const Note =lazy(()=>import('../pages/Note'))
+const SingleNote =lazy(()=>import('../pages/SingleNote'))
 const Routes = (props) => {
     return (
        <>
@@ -13,6 +14,7 @@ const Routes = (props) => {
            <Header {...props}/>
            <Route exact path="/" component={Home} />
            <Route exact path="/note" component={Note} />
+           <Route exact path="/note/:id" component={SingleNote} />
            <Footer/>
            </>
        </Switch>

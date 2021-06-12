@@ -38,11 +38,15 @@ catch(err){
 console.log(err.data)
 message.error("Authentication Failed")
 }
-   
-
-
 
 };
+
+
+
+
+
+
+
 
 
 export const logout = (history) =>(dispatch)=> {
@@ -57,5 +61,8 @@ export const logout = (history) =>(dispatch)=> {
             user: {},
         },
     });
+    dispatch({
+        type:Types.CLEAR_NOTES
+    })
     history.push("/authentication")
   };
