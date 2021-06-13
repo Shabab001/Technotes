@@ -1,19 +1,34 @@
-<p align="center"><a href="https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f"><img src="https://i.imgur.com/PATsTx2.png" title="View tutorial" alt="React, React Router, Redux and Redux Thunk" width="900"></a></p>
+# Technotes
 
-* Tutorial: [Getting started with create-react-app, Redux, React Router & Redux Thunk](https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f)
+### Summary
 
-## Installation
+To begin with it is a note creating app where you can login and create, edit, delete and share your notes. Its built with **React** library and backend is using default technotes's server.
+
+### Design
+
+Here i have use Styled component which is a css to js library to support avoidable specificty of the class name . Moreover antd is used to give a beeter look for example modals , spinner , propmt message etc.
+
+### State-Management
+
+For efficient state management and data flow here i have used redux ,thunk , react-redux library to hold a firm grip in state management and api calls
+
+### Replication
+
+Go to the termminal and give the following commands
 
 ```bash
-git clone https://github.com/notrab/create-react-app-redux.git
-cd create-react-app-redux
-yarn
+git clone https://github.com/Shabab001/technotes-frontend.git
+cd technotes-frontend
+
 ```
 
 ## Get started
 
 ```bash
-yarn start
+npm install
+npm start
 ```
 
-This boilerplate is built using [create-react-app](https://github.com/facebook/create-react-app) so you will want to read the User Guide for more goodies.
+### Debug
+
+You can use Vsscode debugger to debug this react project and can run test to see desired value by using jest or react-tesing libraries
