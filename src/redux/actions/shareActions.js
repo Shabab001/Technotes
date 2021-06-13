@@ -19,7 +19,7 @@ export const shareNote=(data)=>async(dispatch)=>{
   
       })
       if(Note){
-          console.log(Note);
+         
           dispatch({
             type: Types.SHARE_NOTE,
             payload: {
@@ -51,7 +51,7 @@ export const shareNote=(data)=>async(dispatch)=>{
   
       })
       if(Note){
-          console.log(Note);
+       
           dispatch({
             type: Types.GET_SHARED_NOTES,
             payload: {
@@ -84,7 +84,7 @@ export const getSharedUsers=()=>async(dispatch)=>{
   
       })
       if(Users){
-          console.log(Users);
+          
           dispatch({
             type: Types.GET_SHARED_USERS,
             payload: {

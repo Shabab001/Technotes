@@ -16,7 +16,7 @@ const user= await Axios.post(`${REACT_APP_API}/auth`,mail,{
 
 })
 if(user){
-    console.log(user);
+  
     localStorage.setItem("auth_token", user.data.jwt);
     localStorage.setItem("user_mail", mail.mail);
     let save ={
@@ -53,7 +53,7 @@ export const logout = (history) =>(dispatch)=> {
     localStorage.removeItem("auth_token");
     localStorage.removeItem("user_mail");
     
-    console.log("hi", history);
+  
     message.success("Successfully logged out!");
     dispatch({
         type: Types.LOGOUT,
@@ -63,6 +63,9 @@ export const logout = (history) =>(dispatch)=> {
     });
     dispatch({
         type:Types.CLEAR_NOTES
+    })
+    dispatch({
+        type:Types.CLEAR_SHARE
     })
     history.push("/")
   };

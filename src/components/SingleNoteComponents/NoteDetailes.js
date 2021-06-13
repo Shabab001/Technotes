@@ -178,7 +178,7 @@ max-width: ${basicUnits.maxWidth}px;
 margin: auto;
 text-align: center;
 padding-top: 2rem;
-
+padding-bottom: 4rem;
 font-size: ${basicUnits.fontSize*3};
 font-weight: bold;
 

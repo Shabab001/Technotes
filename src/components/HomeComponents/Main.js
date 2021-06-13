@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import{colors,mediaQuery,basicUnits} from "../../utils/variables"
 import Item from 'antd/lib/list/Item';
 import NoteCard from './NoteCard';
-import {Link} from "react-router-dom"
+
 import {BsPlusCircle} from "react-icons/bs"
 import EditModal from '../modals/EditModal';
 import store  from '../../redux/store/store';
@@ -64,7 +64,7 @@ const handleCancel = () => {
         }
 
     },[props.note,localStorage.auth_token])
-    console.log(notes)
+   
 
     return (
       <>
@@ -87,18 +87,18 @@ const handleCancel = () => {
                <CardGrid2 >
                {notes && notes.map((note,index)=>{
                  return(
-                   <Link key={index} to={`/note/${note.id}`}>
-                       <NoteCard  note={note}/>
-                       </Link>
+              
+                       <NoteCard key={index} note={note}/>
+                   
                        )
                       }) }
                     </CardGrid2>:
                      <CardGrid >
                      {notes && notes.map((note,index)=>{
                        return(
-                         <Link key={index} to={`/note/${note.id}`}>
-                             <NoteCard  note={note}/>
-                             </Link>
+                    
+                             <NoteCard key={index}  note={note}/>
+                           
                              )
                             }) }
                           </CardGrid>
@@ -124,6 +124,7 @@ margin: auto;
 background-color: aliceblue;
 height: 100%;
 background-color: ${colors.secondary};
+padding-bottom:4rem;
 
 `;
 

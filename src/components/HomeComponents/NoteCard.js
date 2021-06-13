@@ -1,6 +1,7 @@
 import React ,{memo}from 'react'
 import styled from 'styled-components'
 import moment from "moment"
+import {Link} from "react-router-dom"
 import{colors,mediaQuery,basicUnits} from "../../utils/variables"
 const NoteCard = ({note}) => {
    
@@ -29,10 +30,13 @@ const NoteCard = ({note}) => {
                 <p>Dteails:</p>
                 <Contents>{truncate(note.details)}</Contents>
             </ContentContainer>
+            <Link to={`/note/${note.id}`}>
             <ContentContainer2>
+                
                 <p>See Details</p>
            
             </ContentContainer2>
+            </Link>
             
         </CardContainer>
     )

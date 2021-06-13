@@ -19,7 +19,7 @@ export const getAllNotes=()=>async(dispatch)=>{
 
       })
       if(Notes){
-          console.log(Notes);
+     
           dispatch({
             type: Types.GET_NOTES,
             payload: {
@@ -81,7 +81,7 @@ try{
 
     })
     if(Note){
-        console.log(Note);
+    
         dispatch({
           type: Types.EDIT_NOTES,
           payload: {
@@ -114,7 +114,7 @@ try{
 
     })
     if(Note){
-        console.log(Note);
+  
       
         message.success("Note has been Edited")
         return true;
@@ -142,7 +142,7 @@ try{
 
     })
     if(Note){
-        console.log(Note);
+        
     
         message.success("Note has been deleted")
         history.push("/note")
