@@ -32,3 +32,9 @@ npm start
 ### Debug
 
 You can use Vsscode debugger to debug this react project and can run test to see desired value by using jest or react-tesing libraries
+
+### Live Serving in heroku
+
+click here to use live
+
+[Techonotes](https://technotes-shabab.herokuapp.com/)
