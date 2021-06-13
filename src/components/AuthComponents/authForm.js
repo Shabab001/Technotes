@@ -23,7 +23,7 @@ const AuthForm = (props) => {
     }
     console.log(mail)
     return (
-        <FormConatainer>
+        <FormConatainer exit={{opacity:0}}>
               <Form onSubmit={handleSubmit}>
                 <FormDesign>
                     <Icon>

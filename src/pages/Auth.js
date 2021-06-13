@@ -1,6 +1,7 @@
 import React,{memo} from 'react'
 import AuthForm from '../components/AuthComponents/authForm'
 import AuthMessage from '../components/AuthComponents/AuthMessage'
+import { motion } from 'framer-motion'
 const Auth = (props) => {
     console.log(props.history)
     return (

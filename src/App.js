@@ -6,6 +6,7 @@ import { Spin } from "antd";
 import "antd/dist/antd.css";
 import Error from './pages/Error';
 
+
 const Routes = lazy(()=>import("./Routes/Routes"))
 const Auth =lazy(()=>import('./pages/Auth'))
 const App = () => {
@@ -19,13 +20,14 @@ const App = () => {
                   tip="Loading"
                   ></Spin>
         </StyledSuspense>
-    }>
+    }>          
+  
                <Switch>
               <Route exact path="/" component={Auth} />
               <Route  path="/note" component={Routes} />
               <Route component={Error} />
-            
             </Switch>
+              
         </Suspense>
 
 

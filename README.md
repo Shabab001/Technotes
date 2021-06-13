@@ -6,7 +6,7 @@ To begin with it is a note creating app where you can login and create, edit, de
 
 ### Design
 
-Here i have use Styled component which is a css to js library to support avoidable specificty of the class name . Moreover antd is used to give a beeter look for example modals , spinner , propmt message etc.
+Here i have use Styled component which is a css to js library to support avoidable specificty of the class name .In addition you can pass props in styled components and can do js stuffs to fill your needs and there are variable i have used to determine color and widths wherere you can change them according to you need and can scale the design .so its benifital to use styled components. Moreover antd is used to give a beeter look for example modals , spinner , propmt message etc.
 
 ### State-Management
 
