@@ -1,5 +1,5 @@
 import {createGlobalStyle} from "styled-components"
-import { basicUnits } from "./variables";
+import { basicUnits,colors } from "./variables";
 const GlobalStyle =createGlobalStyle `
 *,
 *::before,
@@ -11,7 +11,7 @@ const GlobalStyle =createGlobalStyle `
 body {
  
   font-family: "CocogoosePro Light", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
+  background-color: ${colors.secondary};
   font-size:${basicUnits.fontSize};
 
 

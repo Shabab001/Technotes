@@ -2,20 +2,21 @@ import React,{useState} from 'react'
 import { Modal, Button, message } from 'antd';
 
 
+
 const EditModal = ({isModalVisible,handleCancel,handleOk}) => {
    
     const[details,setDetails]=useState({
         value:"",
-        isValid:true,
+        isValid:false,
         message:""
 
     })
 const[title,setTitle]=useState({
     value:"",
-    isValid:true,
+    isValid:false,
     message:""
 })
-    const[disable,setDisable]=useState(false)
+  
 
    
     const handleChange=(e)=>{
@@ -37,7 +38,7 @@ const[title,setTitle]=useState({
            }
         }
     }
-console.log(title,details)
+
 
     return (
         <Modal title="Edit Notes" visible={isModalVisible} onOk={()=>{

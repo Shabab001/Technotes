@@ -2,6 +2,7 @@ import React,{memo,useEffect,useState} from 'react'
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as noteActions from "../../redux/actions/noteActions";
+import * as shareActions from "../../redux/actions/shareActions";
 import styled from 'styled-components';
 import{colors,mediaQuery,basicUnits} from "../../utils/variables"
 import Item from 'antd/lib/list/Item';
@@ -9,10 +10,13 @@ import NoteCard from './NoteCard';
 import {Link} from "react-router-dom"
 import {BsPlusCircle} from "react-icons/bs"
 import EditModal from '../modals/EditModal';
+import store  from '../../redux/store/store';
+import * as Types from "../../redux/types/Types"
 
 const Main = (props) => {
 const [notes,setNotes]=useState([])
 const [isModalVisible, setIsModalVisible] = useState(false);
+
 
 const showModal = () => {
   setIsModalVisible(true);
@@ -43,8 +47,14 @@ const handleCancel = () => {
           
     
        if(localStorage.auth_token){
-           
-        props.actions.getAllNotes()
+        props.actions.getAllNotes();
+       
+        props.shareActions.getSharedNotes();
+       }
+       return()=>{
+         store.dispatch({
+           type:Types.CLEAR_NOTES
+         })
        }
    },[localStorage.auth_token])
 
@@ -73,22 +83,31 @@ const handleCancel = () => {
                 <AllNotesHeadings>Add Note</AllNotesHeadings>
                </AddNoteGrid>
                </HeadingGrid>
-               <CardGrid >
+               {props.note.notesCount ===1?
+               <CardGrid2 >
                {notes && notes.map((note,index)=>{
-                   return(
-                     <Link key={index} to={`/note/${note.id}`}>
+                 return(
+                   <Link key={index} to={`/note/${note.id}`}>
                        <NoteCard  note={note}/>
                        </Link>
                        )
-                    }) }
-                    </CardGrid>
+                      }) }
+                    </CardGrid2>:
+                     <CardGrid >
+                     {notes && notes.map((note,index)=>{
+                       return(
+                         <Link key={index} to={`/note/${note.id}`}>
+                             <NoteCard  note={note}/>
+                             </Link>
+                             )
+                            }) }
+                          </CardGrid>
+                    }
            </AllNotesSec>
            <div>
 
            </div>
-           <div>
-               <p>Your Notes</p>
-           </div>
+         
            <EditModal isModalVisible={isModalVisible} handleCancel={handleCancel} handleOk={handleOk}/>
         </MainContainer>:
         <p>Please Authenticate to see notes</p>
@@ -103,7 +122,7 @@ width: 100%;
 max-width: ${basicUnits.maxWidth}px;
 margin: auto;
 background-color: aliceblue;
-height: auto;
+height: 100%;
 background-color: ${colors.secondary};
 
 `;
@@ -144,6 +163,13 @@ gap:1rem;
 
 
 `
+const CardGrid2 =styled.div`
+display: grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,.5fr)) ;
+gap:1rem;
+
+
+`
 const AddNoteGrid =styled.div`
 display: flex;
 align-items: center;
@@ -166,13 +192,15 @@ justify-content: space-between;
 function mapStateToProps(state, ownProps) {
     return {
       auth: state.auth,
-      note:state.note
+      note:state.note,
+      sharedNote:state.share
     };
   }
   
   function mapDispatchToProps(dispatch) {
     return {
       actions: bindActionCreators(noteActions, dispatch),
+      shareActions: bindActionCreators(shareActions, dispatch)
     };
   }
   export default connect(mapStateToProps, mapDispatchToProps)(memo(Main));

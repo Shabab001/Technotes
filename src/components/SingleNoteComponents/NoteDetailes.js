@@ -1,18 +1,25 @@
 import React,{useEffect,useState,memo} from 'react'
 import * as noteActions from "../../redux/actions/noteActions";
+import * as shareActions from "../../redux/actions/shareActions";
 import { connect } from "react-redux";
+import store  from '../../redux/store/store';
 import { bindActionCreators } from "redux";
+import * as Types from "../../redux/types/Types"
 import{colors,mediaQuery,basicUnits} from "../../utils/variables"
 import styled from 'styled-components';
-import { Modal, Button } from 'antd';
+
 import moment from "moment"
 import EditModal from '../modals/EditModal';
 import DeleteModal from '../modals/deleteModal';
+import ShareModal from '../modals/ShareModal';
 
 const NoteDetailes = (props) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isDelModalVisible, setIsDelModalVisible] = useState(false);
-    console.log(props.id)
+    const [isShareModalVisible, setIsShareModalVisible] = useState(false);
+    const [sharedUser,setSharedUser]=useState([])
+  
+  
     const showModal = (string) => {
         if(string==="edit"){
 
@@ -21,14 +28,31 @@ const NoteDetailes = (props) => {
         if(string==="del"){
             setIsDelModalVisible(true);
         }
+        if(string=="share"){
+          setIsShareModalVisible(true)
+        }
+      };
+      const handleShare=async(mail)=>{
+        let data={
+            shared_to:mail,
+            note_id:props.id,
+        }
+          const share= await props.shareActions.shareNote(data);
+          if(share){
+         
+            props.shareActions.getSharedNotes()
+            setIsShareModalVisible(false);
+          }
       };
       const handleDelete=async()=>{
-          const del= await props.actions.deleteNote(props.id,props.history);
-          if(del){
-            props.actions.getAllNotes()
-            setIsDelModalVisible(false);
-          }
-      }
+      
+        const del= await props.actions.deleteNote(props.id,props.history);
+        if(del){
+        
+          setIsDelModalVisible(false);
+        }
+    }
+
 
     const handleOk = async(title,details) => {
         let data={
@@ -37,7 +61,7 @@ const NoteDetailes = (props) => {
         }
         const update = await props.actions.editNote(props.id,data);
         if(update){
-            props.actions.getAllNotes()
+           
             setIsModalVisible(false);
         }
       
@@ -46,13 +70,47 @@ const NoteDetailes = (props) => {
       const handleCancel = () => {
         setIsModalVisible(false);
         setIsDelModalVisible(false);
+        setIsShareModalVisible(false)
       };
 
+
+      useEffect(()=>{
+        props.shareActions.getSharedNotes();
+        return()=>{
+          store.dispatch({
+            type:Types.CLEAR_SHARE
+          })
+        }
+       },[])
    
     useEffect(()=>{
        props.actions.getNoteDetails(props.id)
+       return()=>{
+      
+         store.dispatch({
+           type:Types.CLEAR_SINGLENOTE
+         })
+       }
+         
+     
     },[])
 
+    useEffect(()=>{
+      console.log(props.sharedNote)
+         if(props.sharedNote && props.sharedNote.allShareNotes && props.sharedNote.allShareNotes.length !==0){
+           console.log('Hi')
+           let users=[]
+          props.sharedNote.allShareNotes.forEach(item => {
+            console.log(item.note.id)
+                  if(item.note.id == props.id){
+                   
+                    users=[...users,item.target_user.mail];
+                  }
+          });
+          setSharedUser(users)
+         }
+    },[props.sharedNote.allShareNotes])
+    
     return (
         <>
            {props.auth.user && props.singleNote?
@@ -79,10 +137,25 @@ const NoteDetailes = (props) => {
                  <SecondText2>{props.singleNote.details}</SecondText2>
              </SecondConatainer>
              </DetailsGrid>
+             <SharedContainer>
+               <p>Total Numbers of Sharing: {sharedUser.length}</p>
+               <p style={{paddingTop:"1rem"}}>Shared with</p>
+               {sharedUser&& sharedUser.length!==0 && sharedUser.map((item,index)=>{
+                 return(
+                   <p key={index}>{item}</p>
+                 )
+               })
+
+               }
+             </SharedContainer>
              <ThirdConatainer>
                  <EditBtn  onClick={()=>showModal("edit")}>
                      <p>Edit Note</p>
                  </EditBtn>
+                 <EditBtn btn={"share"} onClick={()=>showModal("share")}>
+                     <p>Share Note</p>
+                 </EditBtn>
+
                  <EditBtn btn={"delete"} onClick={()=>showModal("del")}>
                      <p>Delete Note</p>
                  </EditBtn>
@@ -92,6 +165,7 @@ const NoteDetailes = (props) => {
                         }
               <EditModal isModalVisible={isModalVisible} handleCancel={handleCancel} handleOk={handleOk}/>
               <DeleteModal isModalVisible={isDelModalVisible} handleCancel={handleCancel} deleteOk={handleDelete}/>
+              <ShareModal isModalVisible={isShareModalVisible} handleCancel={handleCancel} handleOk={handleShare}/>
         </>
     )
 }
@@ -121,9 +195,9 @@ font-weight: bold;
 
 
 const FirsConatainer= styled.div`
-background-color: ${colors.secondary};
+background-color: white;
 padding:2rem;
-color:white;
+color:${colors.secondary};
 text-align: center;
 
 
@@ -143,7 +217,7 @@ padding-bottom: 2rem;
 
 `
 const FirsText=styled.p`
-color:white;
+color:${colors.secondary};
 font-size: ${basicUnits.fontSize*2.5}px;
 word-wrap:break-word;
 font-weight: bold;
@@ -177,7 +251,7 @@ text-align: center;
 
 const ThirdConatainer= styled.div`
 
-padding:3rem;
+padding:1rem;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -185,7 +259,14 @@ gap:3rem;
 flex-wrap: wrap;
 
 `
+const SharedContainer= styled.div`
 
+padding:2rem;
+
+align-items: center;
+color:${colors.primary};
+font-size: ${basicUnits.fontSize*1.2}px;
+`
 const EditBtn= styled.div`
 
 height: 4rem;
@@ -193,8 +274,8 @@ width: 16rem;
 display: flex;
 justify-content: center;
 align-items: center;
-background-color:${({btn})=> btn==="delete"? `${colors.secondary}`:`${colors.primary}` } ;
-color:${({btn})=> btn==="delete"? `${colors.primary}`:`${colors.secondary}` } ;
+background-color:${({btn})=> btn==="delete"? `${colors.primary}`:btn==="share"?`${colors.third}`:`${colors.primary}` } ;
+color:${({btn})=> btn==="delete"?`${colors.secondary}`:btn==="share"? `${colors.secondary}`:`${colors.secondary}` } ;
 font-size: ${basicUnits.fontSize*1.5}px;
 cursor: pointer;
 `
@@ -204,13 +285,15 @@ function mapStateToProps(state, ownProps) {
     return {
       auth: state.auth,
       note:state.note,
-      singleNote:state.note.singleNote
+      singleNote:state.note.singleNote,
+      sharedNote:state.share
     };
   }
   
   function mapDispatchToProps(dispatch) {
     return {
       actions: bindActionCreators(noteActions, dispatch),
+      shareActions:bindActionCreators(shareActions, dispatch)
     };
   }
   export default connect(mapStateToProps, mapDispatchToProps)(memo(NoteDetailes));

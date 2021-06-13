@@ -27,7 +27,8 @@
     "redux": "4.1.0",
     "redux-thunk": "2.3.0",
     "serve": "10.1.2",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "validator": "^13.6.0"
   },
   "browserslist": [
     ">0.2%",

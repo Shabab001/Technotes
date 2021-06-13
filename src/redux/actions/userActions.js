@@ -30,7 +30,7 @@ if(user){
         },
       });
       message.success("Authentication Complete")
-      history.push("/")
+      history.push("/note")
     return user.data
 }
 }
@@ -64,5 +64,5 @@ export const logout = (history) =>(dispatch)=> {
     dispatch({
         type:Types.CLEAR_NOTES
     })
-    history.push("/authentication")
+    history.push("/")
   };

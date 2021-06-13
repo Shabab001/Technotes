@@ -35,10 +35,14 @@ const Main= styled.div`
 
 
 const Welcome= styled.p`
+font-size: ${basicUnits.fontSize*2}px;
+color:${colors.secondary};
+padding-bottom: 1rem;
+${mediaQuery.med `
 font-size: ${basicUnits.fontSize*3}px;
 color:${colors.secondary};
 padding-bottom: 2rem;
-
+`}
 
 `;
 const LogoContainer= styled.div`
@@ -51,22 +55,41 @@ display: flex;
 align-items: center;
 justify-content: center;
 background-color: ${colors.secondary};
+width: ${basicUnits.size*15}px;
+margin: auto;
+padding:1rem;
+${mediaQuery.med `
+background-color: aliceblue;
+transform: skewX(
+-15deg
+);
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: ${colors.secondary};
 width: ${basicUnits.size*20}px;
 margin: auto;
 padding:1rem;
+`}
 `;
 const Logo= styled.p`
 
-font-size: ${basicUnits.fontSize*3}px;
+font-size: ${basicUnits.fontSize*2}px;
 color:${colors.third};
 font-weight:bold;
-
+${mediaQuery.med `
+font-size: ${basicUnits.fontSize*3}px;
+`}
 `;
 const Msg= styled.p`
+padding-top: 1rem;
+font-size: ${basicUnits.fontSize*1.5}px;
+color:${colors.secondary};
+${mediaQuery.med `
 padding-top: 2rem;
 font-size: ${basicUnits.fontSize*2}px;
 color:${colors.secondary};
-
+`}
 
 `
 const Heading= styled.div`

@@ -36,7 +36,14 @@ const noteReducer = (state = init, action) => {
          notesCount:null,
         };
       }
-     
+      case Types.CLEAR_SINGLENOTE: {
+        return {
+         ...state,
+         
+         singleNote:{},
+        
+        };
+      }
      
       default:
         return state;

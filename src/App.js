@@ -20,8 +20,8 @@ const App = () => {
         </StyledSuspense>
     }>
                <Switch>
-              <Route exact path="/authentication" component={Auth} />
-              <Route  path="/" component={Routes} />
+              <Route exact path="/" component={Auth} />
+              <Route  path="/note" component={Routes} />
             
             </Switch>
         </Suspense>

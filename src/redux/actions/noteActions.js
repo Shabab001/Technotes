@@ -26,7 +26,7 @@ export const getAllNotes=()=>async(dispatch)=>{
               notes: Notes.data,
             },
           })
-          message.success("All Notes Retrieved")
+         
       }
 
   }
@@ -50,14 +50,14 @@ try{
 
     })
     if(Note){
-        console.log(Note);
+       
         dispatch({
           type: Types.GET_NOTE_DETAILS,
           payload: {
             notes: Note.data.note,
           },
         })
-        message.success("All Notes Retrieved")
+   
     }
 
 }
@@ -145,7 +145,7 @@ try{
         console.log(Note);
     
         message.success("Note has been deleted")
-        history.push("/")
+        history.push("/note")
         return true;
     }
 

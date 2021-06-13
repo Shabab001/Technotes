@@ -28,7 +28,7 @@ const Header = (props) => {
       <Head>
         <Container>
                <LeftContainer>
-               <Link to="/">  
+               <Link to="/note">  
                <LogoContainer>
                  <Logo>TechNotes</Logo>
 
@@ -39,16 +39,11 @@ const Header = (props) => {
                <Hamburger open={open} setOpen={setOpen}/>
                <RightContainer open={open}>
                  { !props.auth.isAuthenticated?
-                  <Link to="/authentication"> <MyNotes>Login </MyNotes></Link>:
+                  <Link to="/"> <MyNotes>Login </MyNotes></Link>:
                    <MyNotes onClick={logout}>Logout </MyNotes>
                 
                 }
                 
-                <Link to="/note"> <MyNotes>My Notes</MyNotes></Link>
-            
-                   <MyNotes>My Notes</MyNotes>
-                   <MyNotes>My Notes</MyNotes>
-                   <MyNotes>My Notes</MyNotes>
                </RightContainer>
         </Container>
       </Head>
@@ -74,8 +69,10 @@ color:${colors.secondary};
 `}
 a{
  color:${colors.third};
+ transition:none;
  ${mediaQuery.med `
  color:${colors.secondary};
+ transition:none;
  `}
 }
 
@@ -117,10 +114,11 @@ color:${colors.third};
 
 `
 const LogoContainer= styled.div`
-  
+ ${mediaQuery.med `
+
 background-color: aliceblue;
 transform: skewX(
--15deg
+  -15deg
 );
 display: flex;
 align-items: center;
@@ -128,8 +126,21 @@ justify-content: center;
 background-color: ${colors.secondary};
 width: ${basicUnits.size*15}px;
 margin: auto;
-padding:1.1rem;
-height: 100%;
+
+height:4rem;
+  `} 
+  background-color: aliceblue;
+transform: skewX(
+  -15deg
+);
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: ${colors.secondary};
+width: ${basicUnits.size*11}px;
+margin: auto;
+
+height:3rem;
 `;
 
 
@@ -159,8 +170,10 @@ right:0;
 height: 100vh;
 width:50%;
 background-color: ${colors.secondary};
+-webkit-transform: ${({open})=>open? 'translateX(0)':'translateX(100%)'};
 transform: ${({open})=>open? 'translateX(0)':'translateX(100%)'};
-transition: transform .3s  ease-in-out;
+
+transition: transform .3s forwards ease-in-out;
 z-index: 10;
 color:${colors.third};
 

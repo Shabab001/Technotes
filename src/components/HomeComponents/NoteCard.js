@@ -21,14 +21,18 @@ const NoteCard = ({note}) => {
               <p>{moment(note.created).format('MMM')}</p>
               <p>{moment(note.created).format('YYYY')}</p>
             </DateContainer>
-            <ContentContainer>
+            <ContentContainer3>
                 <p>Title:</p>
                 <Contents>{note.title}</Contents>
-            </ContentContainer>
+            </ContentContainer3>
             <ContentContainer>
                 <p>Dteails:</p>
                 <Contents>{truncate(note.details)}</Contents>
             </ContentContainer>
+            <ContentContainer2>
+                <p>See Details</p>
+           
+            </ContentContainer2>
             
         </CardContainer>
     )
@@ -39,7 +43,7 @@ const CardContainer = styled.div`
 margin-top: 2rem;
 background-color: white;
 color:${colors.secondary};
-padding:4rem 3rem;
+padding:1rem 3rem;
 position: relative;
 
 `
@@ -49,10 +53,28 @@ font-weight: normal;
 
 `
 const ContentContainer = styled.div`
+
 padding-bottom: 1rem;
 font-size: ${basicUnits.fontSize*1.3}px;
 font-weight: bold;
 word-wrap:break-word;
+
+`
+const ContentContainer3 = styled.div`
+padding-top: 4rem;
+padding-bottom: 1rem;
+font-size: ${basicUnits.fontSize*1.3}px;
+font-weight: bold;
+word-wrap:break-word;
+
+`
+const ContentContainer2 = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+color:${colors.third};
+font-weight: bold;
+padding-top: 1rem;
 
 `
 const DateContainer = styled.div`
@@ -60,13 +82,13 @@ position: absolute;
 top:0;
 right: 0;
 width:5rem;
-height: 5rem;
+padding:.5rem 0;
 background-color: ${colors.primary};
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-gap:.3rem;
+
 
 font-weight: Bold;
 font-size: ${basicUnits.fontSize*1.2}px;

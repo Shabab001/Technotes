@@ -44,9 +44,18 @@ const FormConatainer= styled.div `
 width: 100%;
 max-width: ${basicUnits.maxWidth}px;
 margin:auto;
+
+
+padding-top:4rem;
+${mediaQuery.med `
+width: 100%;
+max-width: ${basicUnits.maxWidth}px;
+margin:auto;
 height: auto;
-max-height: 50vh;
+
+
 padding-top:8rem;
+`}
 
 `;
 const Form= styled.form`
@@ -70,6 +79,10 @@ border:none;
 height: 100%;
 width: 100%;
 color:${colors.secondary};
+font-size:${basicUnits.fontSize*.8}px;
+${mediaQuery.med `
+font-size:${basicUnits.fontSize*1}px;
+`}
 `
 const FormDesign= styled.div `
 border:2px solid grey;
